@@ -1,9 +1,15 @@
 import { Welcome, ScoreBoard, Results, Captain } from "./components"
 import { Footer, NavBar } from "../../components/layout"
+import { motion } from "framer-motion"
 
 function Home() {
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.8 }}
+    >
       <NavBar />
       <Welcome />
       <ScoreBoard />
@@ -12,7 +18,7 @@ function Home() {
       <div className="footer" id="captains">
         <Footer />
       </div>
-    </div>
+    </motion.div>
   )
 }
 

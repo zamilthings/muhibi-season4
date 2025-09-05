@@ -18,12 +18,12 @@ function ScoreBoard() {
         const sortField = 'Total';
         const sortDirection = 'desc';
         const Records = await fetchRecords(tableName, filterBy, sortField, sortDirection);
-        const colors = ['amber', 'purple', 'teal'];
+        // const colors = ['teal', 'orange', 'pink'];
         const RecordsData = Records.map((record, index) => ({
           ...record,
           fields: {
             ...record.fields,
-            color: colors[index % colors.length],
+            // color: colors[index % colors.length],
           },
         }));
         // console.log(RecordsData);
@@ -55,9 +55,9 @@ function ScoreBoard() {
                   viewport={{ once: true }} className={classNames('w-56 h-72 rounded-full mx-auto shadow-lg relative card border',
                     `card${index + 1})`,
                     {
-                      'border-teal-500 bg-teal-200/20': item.fields.color === 'teal',
-                      'border-amber-500 bg-amber-200/20': item.fields.color === 'amber',
-                      'border-purple-500 bg-purple-200/20': item.fields.color === 'purple'
+                      'border-[#003F06] bg-[#D3FFD7]': item.fields.color === 'teal',
+                      'border-[#721872] bg-[#FFE0FC]': item.fields.color === 'pink',
+                      'border-[#F07F07] bg-[#FFF3E6]': item.fields.color === 'orange'
                     })}>
                   {/* stars for first position */}
                   {index === 0 && <div className='absolute -top-14 left-0 w-full  rounded-lg '>
@@ -69,9 +69,9 @@ function ScoreBoard() {
                   <div className="flex items-center justify-center w-full h-full max-h-[300px] z-10  text-center flex-col">
                     <h2 className={classNames('text-[100px] h-10 top-0 font-bold',
                       {
-                        'text-teal-800/20': item.fields.color === 'teal',
-                        'text-amber-500/20': item.fields.color === 'amber',
-                        'text-purple-900/20': item.fields.color === 'purple'
+                        'text-[#00646633]': item.fields.color === 'teal',
+                        'text-[#F07F0733]': item.fields.color === 'orange',
+                        'text-[#4D194D33]': item.fields.color === 'pink'
                       }
                     )}> {index + 1}</h2>
                     <h6
@@ -79,13 +79,13 @@ function ScoreBoard() {
                         'text-3xl uppercase mt-20 font-bold',
                         `card-team-${index + 1}`,
                         {
-                          'text-teal-800': item.fields.color === 'teal',
-                          'text-amber-500': item.fields.color === 'amber',
-                          'text-purple-900': item.fields.color === 'purple'
+                          'text-[#003F06]': item.fields.color === 'teal',
+                          'text-[#F07F07]': item.fields.color === 'orange',
+                          'text-[#721872]': item.fields.color === 'pink'
                         }
                       )}
                     >{item.fields.Name}</h6>
-                    <span className="mt-4 text-center text-2xl mx-auto font-bold h-2">{item.fields.Total} <span className="font-semibold text-lg">pts</span></span>
+                    <span className="mt-4 text-center text-2xl mx-auto font-bold h-2 text-[#262626E5]">{item.fields.Total} <span className="font-semibold text-lg">pts</span></span>
                   </div>
                 </motion.div >
                 {index % 2 !== 0 && <div className="scoreCard--responsive" />}

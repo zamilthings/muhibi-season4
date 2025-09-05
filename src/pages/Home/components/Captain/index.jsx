@@ -5,27 +5,33 @@ import { motion } from "framer-motion"
 function Captain() {
   const Teams = [
     {
-      name: "KAMAR",
+      name: "AMAWIYYA",
       color: "teal",
       captains: [
-        { name: "Niyas Muhammed", gender: "male" },
-        { name: "Fathima Rahba", gender: "female" },
+        { name: "Muhammed Adnan K K", gender: "male", role: "Leader" },
+        { name: "Muhammed Dilshah P T", gender: "male", role: "Assistant Leader" },
+        { name: "Nabeela K P", gender: "female", role: "Leader" },
+        { name: "Fathima Fahmidha T", gender: "female", role: "Assistant Leader" },
       ],
     },
     {
-      name: "HILAL",
-      color: "purple",
+      name: "ABBASIYYA",
+      color: "pink",
       captains: [
-        { name: "Sinan KT", gender: "male" },
-        { name: "Aflaha KK", gender: "female" },
+        { name: "Riyas", gender: "male", role: "Leader" },
+        { name: "Rishad K T", gender: "male", role: "Assistant Leader" },
+        { name: "Fathima Riya C", gender: "female", role: "Leader" },
+        { name: "Fahmidha Febi V P", gender: "female", role: "Assistant Leader" },
       ],
     },
     {
-      name: "BADR",
-      color: "amber",
+      name: "USMAANIYYA",
+      color: "orange",
       captains: [
-        { name: "Bishr", gender: "male" },
-        { name: "Rinsha", gender: "female" },
+        { name: "Rahif", gender: "male", role: "Leader" },
+        { name: "Sinan", gender: "male", role: "Assistant Leader" },
+        { name: "Fathima Musna V P", gender: "female", role: "Leader" },
+        { name: "Fanha K P", gender: "female", role: "Assistant Leader" },
       ],
     },
   ];
@@ -45,17 +51,17 @@ function Captain() {
               key={index}
               className={classNames(`border-2  p-4 rounded-lg min-w-[230px] max-w-[300px] mx-auto`,
                 {
-                  'border-teal-500': team.color === 'teal',
-                  'border-amber-500': team.color === 'amber',
-                  'border-purple-500': team.color === 'purple'
+                  'border-[#003F06]': team.color === 'teal',
+                  'border-[#F07F07]': team.color === 'orange',
+                  'border-[#4D194D]': team.color === 'pink'
                 })}
             >
               <h3
                 className={classNames(`font-semibold text-lg  text-white p-2 rounded-lg text-center -mt-10 mb-6`,
                   {
-                    'bg-teal-700': team.color === 'teal',
-                    'bg-orange-500': team.color === 'amber',
-                    'bg-purple-900': team.color === 'purple'
+                    'bg-[#003F06]': team.color === 'teal',
+                    'bg-[#F07F07]': team.color === 'orange',
+                    'bg-[#4D194D]': team.color === 'pink'
                   })}
               >
                 {team.name}
@@ -65,9 +71,10 @@ function Captain() {
                   <div key={index}
                     className={classNames(`flex items-center mb-2 text-white  p-2 rounded-lg`,
                       {
-                        'bg-teal-700': team.color === 'teal',
-                        'bg-orange-500': team.color === 'amber',
-                        'bg-purple-900': team.color === 'purple'
+                        'bg-[#003F06]': team.color === 'teal',
+                        'bg-[#F07F07]': team.color === 'orange',
+                        'bg-[#4D194D]': team.color === 'pink',
+                        'mb-6': index === 1
                       })}>
                     <div className="bg-white rounded-lg mr-2">
                       <img
@@ -76,7 +83,10 @@ function Captain() {
                         className="w-10 h-10"
                       />
                     </div>
-                    <span className="font-semibold">{captain.name}</span>
+                    <div className="flex flex-col">
+                      <span className="font-semibold">{captain.name}</span>
+                      <span className="font-medium text-sm">{captain.role}</span>
+                    </div>
                   </div>
                 ))}
               </div>

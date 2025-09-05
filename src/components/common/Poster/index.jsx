@@ -36,8 +36,8 @@ const Poster = ({ programCategory, programName, stage, records }) => {
           <p className={classNames(
             'font-bold uppercase custom-program-name',
             {
-              'text-purple-800': stage === 'OFF STAGE',
-              'text-amber-900': stage === 'ON STAGE'
+              'text-white': stage === 'OFF STAGE',
+              'text-white': stage === 'ON STAGE'
             })}>
             {programName}
           </p>
@@ -45,8 +45,8 @@ const Poster = ({ programCategory, programName, stage, records }) => {
             className={classNames(
               'custom-program-category',
               {
-                'text-purple-800': stage === 'OFF STAGE',
-                'text-amber-900': stage === 'ON STAGE'
+                'text-white': stage === 'OFF STAGE',
+                'text-white': stage === 'ON STAGE'
               })}>
             {programCategory}
           </p>
@@ -59,8 +59,8 @@ const Poster = ({ programCategory, programName, stage, records }) => {
                   className={classNames(
                     'flex  flex-col leading-4',
                     {
-                      'text-purple-800': stage === 'OFF STAGE',
-                      'text-amber-900': stage === 'ON STAGE'
+                      'text-white': stage === 'OFF STAGE',
+                      'text-white': stage === 'ON STAGE'
                     })}>
                   <p className={`font-semibold text-sm custom-winner-name`}>
                     {record.fields.Name}

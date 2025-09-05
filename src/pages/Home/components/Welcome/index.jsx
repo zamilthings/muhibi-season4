@@ -3,12 +3,16 @@ import { Logo_lg, text_logo_white_lg } from "@/assets/Logo";
 import { Madrasa, welcome } from "@/assets/images";
 import { Calendar } from 'lucide-react';
 
-const StatiCard = ({ titles, values }) => {
+
+const StatiCard = ({ titles, values, days }) => {
+    // Replace first value with dynamic days
+    const displayValues = [days, ...values.slice(1)];
+
     return (
         <div className="stati-card">
             {titles.map((title, index) => (
-                <div key={index} className={`stat-item ${index > 0 ? 'border-left' : ''}`}>
-                    <p className="value">{values[index]}</p>
+                <div key={index} className={`stat-item ${index > 0 ? 'border-left' : ''} px-4`}>
+                    <p className="value">{displayValues[index]}</p>
                     <h1 className="title">{title}</h1>
                 </div>
             ))}
@@ -35,9 +39,20 @@ function Welcome() {
         setLoading(false);
     };
 
+    const startDate = new Date("2025-09-07");
+    const today = new Date();
+
+    // Reset times to midnight to ignore partial days
+    const start = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+    const now = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
+    const diffInMs = start - now; // note: start - now
+    const daysDiff = Math.max(Math.ceil(diffInMs / (1000 * 60 * 60 * 24)), 0);
+
+
     return (
         <div className="flex flex-col mx-auto ">
-            <div className="relative p-3">
+            <div className="relative p-3 ">
                 {/* Skeleton loader when the image is loading */}
                 {loading && <div className="w-full h-[350px] md:h-[650px] bg-gray-300 animate-pulse rounded-xl"></div>}
 
@@ -48,18 +63,15 @@ function Welcome() {
                     onLoad={handleImageLoad}
                 />
                 <div className="welcome-container">
-                    <div className="logo-container">
-                        <img src={Logo_lg} alt="alt_" className="logo" />
-                        <img src={text_logo_white_lg} alt="alt_" className="text-logo" />
-                    </div>
+
 
                     <div className="info-container">
                         <div className="date-card">
-                            <DateCard month="September" day="14 - 17" year="2024" />
+                            <DateCard month="September" day="07" year="2025" />
 
                         </div>
                         <div className="stats-card">
-                            <StatiCard titles={["Days", "Events", "Students"]} values={["4", "30+", "300+"]} />
+                            <StatiCard days={daysDiff} titles={["Days", "Events", "Students"]} values={["2", "200+", "300+"]} />
                         </div>
                     </div>
                 </div>
@@ -74,9 +86,10 @@ function Welcome() {
                 </div> */}
             </div>
 
+
             <section className="flex flex-col items-center justify-center mt-4 md:mt-20">
                 <h1 className="text-2xl md:text-4xl font-bold text-black my-6 mt-10 flex flex-col md:flex-row gap-2 items-center justify-center">
-                    Welcome to <span className="text-sky-400">Muhibbi Season 3</span>
+                    Welcome to <span className="text-[#038B10]">Muhibbi Season 3</span>
                 </h1>
                 <div className="flex items-center justify-center flex-col md:flex-row p-4 md:p-0">
                     <div className="md:w-1/2 max-w-[550px] p-2 md:p-4">

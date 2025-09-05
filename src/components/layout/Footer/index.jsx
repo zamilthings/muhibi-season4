@@ -5,6 +5,10 @@ import { useState } from "react";
 function Footer() {
   const [message, setMessage] = useState("");
   const handleClick = () => {
+    if (!message) {
+      alert("Please enter a message");
+      return;
+    }
     setMessage("");
     alert("Thank you for your feedback!")
   }

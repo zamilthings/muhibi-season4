@@ -140,7 +140,7 @@ function Results() {
                                                     key={index}
                                                     className=""
                                                 >
-                                                    <div className="bg-stone-200 px-3 md:px-6 py-1 md:py-2 rounded-xl cursor-pointer hover:scale-105 transition-all ease-in-out duration-300  w-fit" onClick={() => getPrograms(item)}>
+                                                    <div className="bg-green-200/80 px-3 md:px-6 py-1 md:py-2 rounded-xl cursor-pointer hover:scale-105 transition-all ease-in-out duration-300  w-fit" onClick={() => getPrograms(item)}>
                                                         <p className="text-sm    sm:text-lg font-medium whitespace-nowrap">{item.fields.Name}</p>
                                                     </div>
                                                 </motion.div>
@@ -189,7 +189,7 @@ function Results() {
                                 </div>
 
                                 <button
-                                    className="bg-blue-600 text-white font-bold py-3 px-6 rounded-md uppercase text-[16px] mt-4 mx-auto max-w-[450px] w-full flex items-center justify-center transition-all ease-in-out hover:bg-blue-900 custom-width"
+                                    className="bg-[#003F06] text-white font-bold py-3 px-6 rounded-md uppercase text-[16px] mt-4 mx-auto max-w-[450px] w-full flex items-center justify-center transition-all ease-in-out hover:bg-green-700 custom-width"
                                     onClick={() => DownloadPoster(result[0]?.programName)}
                                     disabled={downloading}
                                 >
