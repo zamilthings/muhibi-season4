@@ -34,7 +34,7 @@ const Poster = ({ programCategory, programName, stage, records }) => {
         />
         <div className='custom-top-programName'>
           <p className={classNames(
-            'font-bold uppercase custom-program-name',
+            'font-bold uppercase custom-program-name text-white',
             {
               'text-white': stage === 'OFF STAGE',
               'text-white': stage === 'ON STAGE'
@@ -43,7 +43,7 @@ const Poster = ({ programCategory, programName, stage, records }) => {
           </p>
           <p
             className={classNames(
-              'custom-program-category',
+              'custom-program-category text-white',
               {
                 'text-white': stage === 'OFF STAGE',
                 'text-white': stage === 'ON STAGE'
@@ -57,7 +57,7 @@ const Poster = ({ programCategory, programName, stage, records }) => {
               {records.map((record, index) => (
                 <div key={index}
                   className={classNames(
-                    'flex  flex-col leading-4',
+                    'flex  flex-col leading-4 text-white',
                     {
                       'text-white': stage === 'OFF STAGE',
                       'text-white': stage === 'ON STAGE'

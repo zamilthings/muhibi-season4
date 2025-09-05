@@ -6,7 +6,8 @@ import { Calendar } from 'lucide-react';
 
 const StatiCard = ({ titles, values, days }) => {
     // Replace first value with dynamic days
-    const displayValues = [days, ...values.slice(1)];
+    // const displayValues = [days, ...values.slice(1)];
+    const displayValues = [...values];
 
     return (
         <div className="stati-card">
@@ -23,7 +24,7 @@ const StatiCard = ({ titles, values, days }) => {
 
 const DateCard = ({ day, month, year }) => {
     return (
-        <div className="date-card">
+        <div className="date-card capitalize">
             <span className="flex items-center justify-center w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5"><Calendar /></span>
             <span>{day}</span>
             <span>{month}</span>
@@ -39,15 +40,15 @@ function Welcome() {
         setLoading(false);
     };
 
-    const startDate = new Date("2025-09-07");
-    const today = new Date();
+    // const startDate = new Date("2025-09-07");
+    // const today = new Date();
 
-    // Reset times to midnight to ignore partial days
-    const start = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
-    const now = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    // // Reset times to midnight to ignore partial days
+    // const start = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+    // const now = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
-    const diffInMs = start - now; // note: start - now
-    const daysDiff = Math.max(Math.ceil(diffInMs / (1000 * 60 * 60 * 24)), 0);
+    // const diffInMs = start - now; // note: start - now
+    // const daysDiff = Math.max(Math.ceil(diffInMs / (1000 * 60 * 60 * 24)), 0);
 
 
     return (
@@ -71,7 +72,7 @@ function Welcome() {
 
                         </div>
                         <div className="stats-card">
-                            <StatiCard days={daysDiff} titles={["Days", "Events", "Students"]} values={["2", "200+", "300+"]} />
+                            <StatiCard titles={["Days", "Events", "Students"]} values={["2", "100+", "300+"]} />
                         </div>
                     </div>
                 </div>

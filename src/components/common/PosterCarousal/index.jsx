@@ -26,7 +26,7 @@ const Poster = ({ ProgramCategory, programName, stage, records }) => {
       transition={{ duration: 0.2 }}
 
     >
-      <div className="max-w-[450px] rounded-lg overflow-hidden mx-auto shadow-xl relative" id='poster'>
+      <div className="max-w-[450px] rounded-lg overflow-hidden mx-auto shadow-xl relative text-white" id='poster'>
         <img
           src={stage === "OFF STAGE" ? offStage : onStage}
           alt="poster"
@@ -34,19 +34,19 @@ const Poster = ({ ProgramCategory, programName, stage, records }) => {
         />
         <div className=' carousal-top-programName'>
           <p className={classNames(
-            'font-bold uppercase text-[15px] carousal-program-name',
+            'font-bold uppercase text-[15px] carousal-program-name text-white',
             {
-              'text-purple-800': stage === 'OFF STAGE',
-              'text-amber-900': stage === 'ON STAGE'
+              'text-white': stage === 'OFF STAGE',
+              'text-white': stage === 'ON STAGE'
             })}>
             {programName}
           </p>
           <p
             className={classNames(
-              'text-[11px] carousal-program-category -mt-1',
+              'text-[11px] carousal-program-category -mt-1 text-white',
               {
-                'text-purple-800': stage === 'OFF STAGE',
-                'text-amber-900': stage === 'ON STAGE'
+                'text-white': stage === 'OFF STAGE',
+                'text-white': stage === 'ON STAGE'
               })}>
             {ProgramCategory}
           </p>
@@ -57,10 +57,10 @@ const Poster = ({ ProgramCategory, programName, stage, records }) => {
               {records.map((record, index) => (
                 <div key={index}
                   className={classNames(
-                    'flex flex-col leading-4',
+                    'flex flex-col leading-4 text-white',
                     {
-                      'text-purple-800': stage === 'OFF STAGE',
-                      'text-amber-900': stage === 'ON STAGE'
+                      'text-white': stage === 'OFF STAGE',
+                      'text-white': stage === 'ON STAGE'
                     })}>
                   <p className={`font-semibold text-md carousal-winner-name`}>
                     {record.fields.Name}
