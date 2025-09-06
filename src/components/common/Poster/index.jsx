@@ -35,33 +35,24 @@ const Poster = ({ programCategory, programName, stage, records }) => {
         <div className='custom-top-programName'>
           <p className={classNames(
             'font-bold uppercase custom-program-name text-white',
-            {
-              'text-white': stage === 'OFF STAGE',
-              'text-white': stage === 'ON STAGE'
-            })}>
+          )}>
             {programName}
           </p>
           <p
             className={classNames(
               'custom-program-category text-white',
-              {
-                'text-white': stage === 'OFF STAGE',
-                'text-white': stage === 'ON STAGE'
-              })}>
+            )}>
             {programCategory}
           </p>
         </div>
         <div className='custom-top-winners'>
           {Object.entries(groupRecordsByPlace(records)).map(([place, records]) => (
-            <div key={place} className="flex gap-4 items-start">
+            <div key={place} className="flex  items-start flex-col">
               {records.map((record, index) => (
                 <div key={index}
                   className={classNames(
-                    'flex  flex-col leading-4 text-white',
-                    {
-                      'text-white': stage === 'OFF STAGE',
-                      'text-white': stage === 'ON STAGE'
-                    })}>
+                    'flex  flex-col leading-2 text-white',
+                  )}>
                   <p className={`font-semibold text-sm custom-winner-name`}>
                     {record.fields.Name}
                   </p>
