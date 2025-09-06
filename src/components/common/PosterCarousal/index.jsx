@@ -35,19 +35,13 @@ const Poster = ({ ProgramCategory, programName, stage, records }) => {
         <div className=' carousal-top-programName'>
           <p className={classNames(
             'font-bold uppercase text-[15px] carousal-program-name text-white',
-            {
-              'text-white': stage === 'OFF STAGE',
-              'text-white': stage === 'ON STAGE'
-            })}>
+            )}>
             {programName}
           </p>
           <p
             className={classNames(
               'text-[11px] carousal-program-category -mt-1 text-white',
-              {
-                'text-white': stage === 'OFF STAGE',
-                'text-white': stage === 'ON STAGE'
-              })}>
+             )}>
             {ProgramCategory}
           </p>
         </div>
@@ -58,10 +52,7 @@ const Poster = ({ ProgramCategory, programName, stage, records }) => {
                 <div key={index}
                   className={classNames(
                     'flex flex-col leading-4 text-white',
-                    {
-                      'text-white': stage === 'OFF STAGE',
-                      'text-white': stage === 'ON STAGE'
-                    })}>
+                    )}>
                   <p className={`font-semibold text-md carousal-winner-name`}>
                     {record.fields.Name}
                   </p>

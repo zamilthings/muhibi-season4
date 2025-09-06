@@ -20,13 +20,14 @@
 
 .embla__slide {
   transform: translate3d(0, 0, 0);
-  transform-origin: center; 
+  transform-origin: center;
   flex: 0 0 var(--slide-size);
   min-width: 0;
   padding-left: var(--slide-spacing);
   max-width: var(--slide-size);
   margin: auto;
 }
+
 .embla__slide_protect {
   flex: 0 0 auto;
   display: flex;
@@ -178,6 +179,7 @@
 .poster-card {
   max-width: 450px;
 }
+
 .custom-width {
   max-width: 450px !important;
 }
@@ -188,14 +190,16 @@
   top: 130px;
   left: 42px;
 }
+
 .custom-top-winners {
   position: absolute;
   top: 199px;
-  left: 68px;
+  left: 40px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  /* gap: 15px; */
 }
+
 .custom-program-category {
   font-size: 11px !important;
   margin-top: -4px;
@@ -204,13 +208,14 @@
 .custom-program-name {
   font-size: 12px !important;
 }
+
 .custom-winner-name {
   font-size: 11px !important;
 }
 
 .custom-winner-team {
   font-size: 8px !important;
-  margin-top: -8px !important;
+  margin-top: -7px !important;
 }
 
 
@@ -229,6 +234,7 @@
   flex-direction: column;
   gap: 11px;
 }
+
 .carousal-winner-name {
   font-size: 9px !important;
 }
