@@ -90,7 +90,7 @@ function Welcome() {
 
             <section className="flex flex-col items-center justify-center mt-4 md:mt-20">
                 <h1 className="text-2xl md:text-4xl font-bold text-black my-6 mt-10 flex flex-col md:flex-row gap-2 items-center justify-center">
-                    Welcome to <span className="text-[#038B10]">Muhibbi Season 3</span>
+                    Welcome to <span className="text-[#038B10]">Muhibbi Season 4</span>
                 </h1>
                 <div className="flex items-center justify-center flex-col md:flex-row p-4 md:p-0">
                     <div className="md:w-1/2 max-w-[550px] p-2 md:p-4">
