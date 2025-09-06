@@ -2,8 +2,29 @@ import { motion } from 'framer-motion';
 import { onStage, offStage } from "@/assets/poster";
 import classNames from 'classnames';
 
+// badges
+import Firstbadge from '@/assets/poster/1st.png';
+import Secondbadge from '@/assets/poster/2.png';
+import Thirdbadge from '@/assets/poster/3rd.png';
+
 
 const Poster = ({ programCategory, programName, stage, records }) => {
+
+
+  const getBadgeImage = (place) => {
+    console.log(place);
+    switch (place) {
+      case "First":
+        return Firstbadge;
+      case "Second":
+        return Secondbadge;
+      case "Third":
+        return Thirdbadge;
+      default:
+        return '';
+    }
+  };
+
 
   const groupRecordsByPlace = (records) => {
     const groupedRecords = {};
@@ -35,42 +56,61 @@ const Poster = ({ programCategory, programName, stage, records }) => {
         <div className='custom-top-programName'>
           <p className={classNames(
             'font-bold uppercase custom-program-name text-white',
-            {
-              'text-white': stage === 'OFF STAGE',
-              'text-white': stage === 'ON STAGE'
-            })}>
+          )}>
             {programName}
           </p>
           <p
             className={classNames(
               'custom-program-category text-white',
-              {
-                'text-white': stage === 'OFF STAGE',
-                'text-white': stage === 'ON STAGE'
-              })}>
+            )}>
             {programCategory}
           </p>
         </div>
-        <div className='custom-top-winners'>
+
+        <div className='custom-top-winners text-white gap-3'>
           {Object.entries(groupRecordsByPlace(records)).map(([place, records]) => (
+
             <div key={place} className="flex gap-4 items-start">
-              {records.map((record, index) => (
-                <div key={index}
-                  className={classNames(
-                    'flex  flex-col leading-4 text-white',
-                    {
-                      'text-white': stage === 'OFF STAGE',
-                      'text-white': stage === 'ON STAGE'
-                    })}>
-                  <p className={`font-semibold text-sm custom-winner-name`}>
-                    {record.fields.Name}
-                  </p>
-                  <p className={` text-[11px] custom-winner-team -mt-1`}>
-                    {record.fields.Team}
-                  </p>
+              <div>
+                <img src={getBadgeImage(place)} alt={`Badge ${place}`} className="top-0 respo-badge max-w-4  text-white" />
+              </div>
+              <div className={`${records.length > 1 ? '' : ''}`}>
+                {/* Display winner(s) and department(s) for each place */}
+                {records.map((record, index) => (
+                  <div key={index}
+                    className={classNames(
+                      'flex  flex-col leading-3 text-white items-start justify-start ',
+                    )}>
+                    <p className={`font-semibold text-sm custom-winner-name`}>
+                      {record.fields.Name}
+                    </p>
+                    <p className={` text-[11px] custom-winner-team mt-1`}>
+                      {record.fields.Team}
+                    </p>
+                  </div>
+                ))}
+                <div>
+
+
                 </div>
-              ))}
+
+              </div>
             </div>
+            // <div key={place} className="flex items-start flex-col ">
+            //   {records.map((record, index) => (
+            //     <div key={index}
+            //       className={classNames(
+            //         'flex  flex-col leading-3 text-white',
+            //       )}>
+            //       <p className={`font-semibold text-sm custom-winner-name`}>
+            //         {record.fields.Name}
+            //       </p>
+            //       <p className={` text-[11px] custom-winner-team mt-1`}>
+            //         {record.fields.Team}
+            //       </p>
+            //     </div>
+            //   ))}
+            // </div>
           ))}
         </div>
       </div>
