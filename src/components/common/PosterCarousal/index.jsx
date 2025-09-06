@@ -2,6 +2,10 @@ import { motion } from 'framer-motion';
 import { onStage, offStage } from "@/assets/poster";
 import classNames from 'classnames';
 
+// badges
+import Firstbadge from '@/assets/poster/1st.png';
+import Secondbadge from '@/assets/poster/2.png';
+import Thirdbadge from '@/assets/poster/3rd.png';
 
 const Poster = ({ ProgramCategory, programName, stage, records }) => {
 
@@ -15,6 +19,20 @@ const Poster = ({ ProgramCategory, programName, stage, records }) => {
       groupedRecords[place].push(record);
     });
     return groupedRecords;
+  };
+
+  const getBadgeImage = (place) => {
+    console.log(place);
+    switch (place) {
+      case "First":
+        return Firstbadge;
+      case "Second":
+        return Secondbadge;
+      case "Third":
+        return Thirdbadge;
+      default:
+        return '';
+    }
   };
 
 
@@ -35,33 +53,59 @@ const Poster = ({ ProgramCategory, programName, stage, records }) => {
         <div className=' carousal-top-programName'>
           <p className={classNames(
             'font-bold uppercase text-[15px] carousal-program-name text-white',
-            )}>
+          )}>
             {programName}
           </p>
           <p
             className={classNames(
               'text-[11px] carousal-program-category -mt-1 text-white',
-             )}>
+            )}>
             {ProgramCategory}
           </p>
         </div>
         <div className=' carousal-top-winners '>
           {Object.entries(groupRecordsByPlace(records)).map(([place, records]) => (
-            <div key={place} className="flex  items-start">
-              {records.map((record, index) => (
-                <div key={index}
-                  className={classNames(
-                    'flex flex-col leading-4 text-white',
+            <div key={place} className="flex gap-2 sm:gap-[14px] items-start">
+              <div>
+                <img src={getBadgeImage(place)} alt={`Badge ${place}`} className="top-0 w-[12px] sm:w-4 max-w-4  text-white" />
+              </div>
+              <div className={`${records.length > 1 ? '' : ''}`}>
+                {/* Display winner(s) and department(s) for each place */}
+                {records.map((record, index) => (
+                  <div key={index}
+                    className={classNames(
+                      'flex  flex-col leading-3 text-white items-start justify-start ',
                     )}>
-                  <p className={`font-semibold text-md carousal-winner-name`}>
-                    {record.fields.Name}
-                  </p>
-                  <p className={` text-[11px] carousal-winner-team `}>
-                    {record.fields.Team}
-                  </p>
+                    <p className={`font-semibold text-sm custom-winner-name`}>
+                      {record.fields.Name}
+                    </p>
+                    <p className={` text-[11px] custom-winner-team mt-1`}>
+                      {record.fields.Team}
+                    </p>
+                  </div>
+                ))}
+                <div>
+
+
                 </div>
-              ))}
+
+              </div>
             </div>
+            // <div key={place} className="flex items-start flex-col ">
+            //   {records.map((record, index) => (
+            //     <div key={index}
+            //       className={classNames(
+            //         'flex  flex-col leading-3 text-white',
+            //       )}>
+            //       <p className={`font-semibold text-sm custom-winner-name`}>
+            //         {record.fields.Name}
+            //       </p>
+            //       <p className={` text-[11px] custom-winner-team mt-1`}>
+            //         {record.fields.Team}
+            //       </p>
+            //     </div>
+            //   ))}
+            // </div>
           ))}
         </div>
       </div>

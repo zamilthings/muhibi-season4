@@ -69,10 +69,9 @@ const Poster = ({ programCategory, programName, stage, records }) => {
 
         <div className='custom-top-winners text-white gap-3'>
           {Object.entries(groupRecordsByPlace(records)).map(([place, records]) => (
-
-            <div key={place} className="flex gap-4 items-start">
+            <div key={place} className="flex gap-2 sm:gap-[14px] items-start">
               <div>
-                <img src={getBadgeImage(place)} alt={`Badge ${place}`} className="top-0 respo-badge max-w-4  text-white" />
+                <img src={getBadgeImage(place)} alt={`Badge ${place}`} className="top-0 w-[12px] sm:w-4 max-w-4  text-white" />
               </div>
               <div className={`${records.length > 1 ? '' : ''}`}>
                 {/* Display winner(s) and department(s) for each place */}
