@@ -46,6 +46,7 @@ function Results() {
     }, []);
 
     const getPrograms = async (item) => {
+        console.log(item)
         setIsLoading(true);
         setShowCard(false);
         setShowResultList(false);
@@ -53,7 +54,7 @@ function Results() {
 
         try {
             const tableName = "Result";
-            const filterBy = `{Program} = '${item.fields.Name}'`;
+            const filterBy = `AND({Program} = '${item.fields.Name}', {Program_category} = '${item.fields.Category}')`;
             const sortField = "Place";
             const sortDirection = 'asc';
             const Records = await fetchRecords(
@@ -213,7 +214,7 @@ function Results() {
                                                 >
                                                     <div className="relative bg-green-200/80 px-3 md:px-6 py-1 md:py-2 rounded-xl cursor-pointer hover:scale-105 transition-all ease-in-out duration-300  w-fit" onClick={() => getPrograms(item)}>
                                                         <p className="text-sm    sm:text-lg font-medium whitespace-nowrap">{item.fields.Name}</p>
-                                                        {console.log(item)}
+                                                        <p className="text-[10px]  leading-2 sm:text-xs whitespace-nowrap">{item.fields.Category}</p>
                                                         {item.isNew && (
                                                             <span className="absolute -top-[15px] -right-[6px]  transform translate-x-1 translate-y-1 text-[9px] font-semibold text-white bg-[#003F06]  border-2 border-[#003F06] clip-path-star px-1 py-[1px] shadow-lg rounded-md rounded-bl-none">
                                                                 New
