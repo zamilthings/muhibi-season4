@@ -46,7 +46,7 @@ function Results() {
     }, []);
 
     const getPrograms = async (item) => {
-        setLoading(true);
+        setIsLoading(true);
         setShowCard(false);
         setShowResultList(false);
         const SingleRecord = [];
@@ -77,6 +77,7 @@ function Results() {
             console.error(error);
         } finally {
             setLoading(false);
+            setIsLoading(false);
         }
     };
 
@@ -150,6 +151,8 @@ function Results() {
         return timeDifference <= 7;
     };
 
+
+   
 
 
 
@@ -238,7 +241,7 @@ function Results() {
 
                 <div className="mx-auto w-full my-50">
                     <AnimatePresence>
-                        {Loading && (
+                        {isloading && (
                             <motion.p
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
