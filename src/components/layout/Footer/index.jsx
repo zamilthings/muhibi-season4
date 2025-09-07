@@ -34,7 +34,7 @@ function Footer() {
             <div className="bg-white p-2 rounded-lg flex items-center justify-center">
               <img src={partner} alt="alt_" className="w-auto h-auto max-w-[200px] " />
             </div>
-            <a href="https://wa.me/91322323232">
+            <a href="https://wa.me/7034916695" target="_blank">
               <p className="flex gap-2 items-center my-2 justify-center md:justify-end">
                 +91 7034916695 <Phone size={18} />
               </p>
