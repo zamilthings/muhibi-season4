@@ -1,4 +1,4 @@
-## Muhibbi season 4
+### Muhibbi season 4
 # Madrassa Arts Website
 
 This repository contains the code for the Madrassa Arts website, built using React, Tailwind CSS, and integrating with Airtable API. The site provides a dynamic and fast experience for managing and displaying event information.
