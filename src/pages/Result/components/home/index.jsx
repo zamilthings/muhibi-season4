@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { fetchRecords } from "@/utils/airtableService";
 import { motion, AnimatePresence } from "framer-motion";
 import Poster from "@/components/common/Poster";
-import { ChevronLeft, Loader } from "lucide-react"
+import { ChevronLeft, Loader, Share2 } from "lucide-react"
 import html2canvas from 'html2canvas';
 
 function Results() {
@@ -14,7 +14,7 @@ function Results() {
     const [showCard, setShowCard] = useState(false);
     const [downloading, setDownloading] = useState(false);
     const [Loading, setLoading] = useState(true);
-
+    const [isloading, setIsLoading] = useState(false);
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -28,7 +28,14 @@ function Results() {
                     sortField,
                     sortDirection
                 );
-                setResultList(Records);
+
+                // Add isNew flag for each program
+                const enrichedRecords = Records.map(record => ({
+                    ...record,
+                    isNew: isNewRelease(record.fields.Created),
+                }));
+
+                setResultList(enrichedRecords);
                 setLoading(false);
             } catch (error) {
                 console.error(error);
@@ -39,6 +46,7 @@ function Results() {
     }, []);
 
     const getPrograms = async (item) => {
+        setLoading(true);
         setShowCard(false);
         setShowResultList(false);
         const SingleRecord = [];
@@ -65,31 +73,83 @@ function Results() {
             setResult(SingleRecord);
             setShowCard(true);
             // console.log(SingleRecord);
-            setLoading(false);
         } catch (error) {
             console.error(error);
+        } finally {
+            setLoading(false);
         }
     };
 
-    const DownloadPoster = (programName) => {
-        setDownloading(true);
-        // Get the poster element by its ID or a ref
-        const posterElement = document.getElementById('poster');
-        // Use html2canvas to capture the poster element as an image
-        html2canvas(posterElement).then((canvas) => {
-            // Convert the canvas to a data URL (image format)
-            const image = canvas.toDataURL('image/png');
-
-            // Create a download link
-            const downloadLink = document.createElement('a');
-            downloadLink.href = image;
-            downloadLink.download = `${programName}-poster.png`;
-
-            // Trigger the download
-            downloadLink.click();
-        }).finally(() => setDownloading(false));
-
+    // Helper to save blob as file
+    const saveBlobAsFile = (blob, fileName) => {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = fileName;
+        link.click();
+        URL.revokeObjectURL(url);
     };
+
+    // Download poster
+    const handleDownload = async (programName) => {
+        const poster = document.getElementById('poster');
+        if (!poster) return;
+
+        setDownloading(true);
+        const canvas = await html2canvas(poster, { scale: 2, useCORS: true }); // ✅ sharper
+        canvas.toBlob((blob) => {
+            if (blob) {
+                saveBlobAsFile(blob, `${programName || 'poster'}.png`);
+            }
+            setDownloading(false);
+        }, 'image/png');
+    };
+
+    // Share poster (with clarity fix)
+    const handleShare = async (programName) => {
+        const poster = document.getElementById('poster');
+        if (!poster) return;
+
+        const canvas = await html2canvas(poster, { scale: 2, useCORS: true }); // ✅ sharper
+        canvas.toBlob(async (blob) => {
+            if (!blob) return;
+            const fileName = `${programName || 'poster'}.png`;
+            const file = new File([blob], fileName, { type: 'image/png' });
+
+            if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+                try {
+                    await navigator.share({
+                        title: programName || 'Muhibbi S4',
+                        text: "Check out the winners! 🎉",
+                        url: "https://muhibbi-season4.vercel.app/",
+                        files: [file],
+                    });
+                } catch (err) {
+                    console.error("Error sharing:", err);
+                    saveBlobAsFile(blob, fileName);
+                }
+            } else {
+                saveBlobAsFile(blob, fileName);
+            }
+        }, 'image/png');
+    };
+
+
+
+    const isNewRelease = (dateString) => {
+        if (!dateString) return false;
+
+        const currentDate = new Date();
+        const programDate = new Date(dateString);
+
+        if (isNaN(programDate)) return false;
+
+        // Both are timestamps in ms (UTC-based under the hood)
+        const timeDifference = Math.abs(currentDate.getTime() - programDate.getTime()) / (1000 * 60);
+
+        return timeDifference <= 7;
+    };
+
 
 
 
@@ -105,7 +165,7 @@ function Results() {
                     <input
                         type="text"
                         placeholder="Search Program"
-                        className="custom-width bg-[#FFEACC] w-full max-w-[500px] h-12 px-6 border-none rounded-lg focus:outline-none mb-6 min-w-[300px] focus:shadow-lg transition duration-300 ease-in-out"
+                        className="custom-width bg-[#003F06] placeholder:text-white text-white w-full max-w-[500px] h-12 px-6 border-none rounded-lg focus:outline-none mb-6 min-w-[300px] focus:shadow-lg transition duration-300 ease-in-out"
                         onChange={(e) => {
                             setSearch(e.target.value);
                             setShowResultList(true);
@@ -140,8 +200,14 @@ function Results() {
                                                     key={index}
                                                     className=""
                                                 >
-                                                    <div className="bg-green-200/80 px-3 md:px-6 py-1 md:py-2 rounded-xl cursor-pointer hover:scale-105 transition-all ease-in-out duration-300  w-fit" onClick={() => getPrograms(item)}>
+                                                    <div className="relative bg-green-200/80 px-3 md:px-6 py-1 md:py-2 rounded-xl cursor-pointer hover:scale-105 transition-all ease-in-out duration-300  w-fit" onClick={() => getPrograms(item)}>
                                                         <p className="text-sm    sm:text-lg font-medium whitespace-nowrap">{item.fields.Name}</p>
+                                                        {console.log(item)}
+                                                        {item.isNew && (
+                                                            <span className="absolute -top-[15px] -right-[6px]  transform translate-x-1 translate-y-1 text-[9px] font-semibold text-white bg-[#003F06]  border-2 border-[#003F06] clip-path-star px-1 py-[1px] shadow-lg rounded-md rounded-bl-none">
+                                                                New
+                                                            </span>
+                                                        )}
                                                     </div>
                                                 </motion.div>
                                             ))}
@@ -152,7 +218,7 @@ function Results() {
                                                 animate={{ opacity: 1, y: 0 }}
                                                 exit={{ opacity: 0, y: -20 }}
                                                 transition={{ duration: 0.5, delay: 1 }}
-                                                className="text-rose-500 font-semibold"
+                                                className="text-[#003F06] font-semibold"
                                             >
                                                 No search Found
                                             </motion.div>
@@ -172,6 +238,14 @@ function Results() {
 
                 <div className="mx-auto w-full my-50">
                     <AnimatePresence>
+                        {Loading && (
+                            <motion.p
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.3 }}
+                                className="flex items-center justify-center gap-2 mx-auto w-full my-4 min-h-[200px]">Loading <Loader className="animate-spin" /></motion.p>
+                        )}
                         {showCard && (
                             <motion.div
                                 initial={{ opacity: 0, x: -300 }}
@@ -188,13 +262,18 @@ function Results() {
                                     />
                                 </div>
 
-                                <button
-                                    className="bg-[#003F06] text-white font-bold py-3 px-6 rounded-md uppercase text-[16px] mt-4 mx-auto max-w-[450px] w-full flex items-center justify-center transition-all ease-in-out hover:bg-green-700 custom-width"
-                                    onClick={() => DownloadPoster(result[0]?.programName)}
-                                    disabled={downloading}
-                                >
-                                    {!downloading ? "Download Now" : <Loader className="animate-spin" />}
-                                </button>
+                                <div className="flex max-w-[450px] gap-2 mx-auto">
+                                    <button
+                                        className="bg-[#003F06] text-white font-bold py-3 px-6 rounded-md uppercase text-[16px] mt-4 mx-auto  w-full flex items-center justify-center transition-all ease-in-out hover:bg-green-700 custom-width"
+                                        onClick={() => handleDownload(result[0]?.programName)}
+                                        disabled={downloading}
+                                    >
+                                        {!downloading ? "Download Now" : <Loader className="animate-spin" />}
+                                    </button>
+                                    <button className='bg-[#003F06] text-white font-bold py-3 px-6 rounded-md uppercase text-[16px] mt-4 mx-auto flex items-center justify-center transition-all ease-in-out hover:bg-green-700 custom-width' onClick={() => handleShare(result[0]?.programName)}>
+                                        <span ><Share2 /></span>
+                                    </button>
+                                </div>
                             </motion.div>
                         )}
                     </AnimatePresence>
