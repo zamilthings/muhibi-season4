@@ -252,29 +252,25 @@
   font-size: 11px !important;
 }
 
-@media (max-width:510px) {
-  .embla {
-    --slide-size: 300px;
-  }
+@media (max-width:470px) {
 
-  .poster-card {
+  .poster-card{
     max-width: 350px;
   }
-
   .custom-width {
     max-width: 350px !important;
   }
 
   .custom-top-programName {
     position: absolute;
-    top: 105px;
+    top: 98px;
     left: 32px;
   }
 
   .custom-top-winners {
     position: absolute;
-    top: 153px;
-    left: 50px;
+    top: 143px;
+    left: 30px;
     gap: 5px;
   }
 
@@ -293,6 +289,12 @@
 
   .custom-program-name {
     font-size: 9px !important;
+  }
+}
+
+@media (max-width:510px) {
+  .embla {
+    --slide-size: 300px;
   }
 
   /* carousal */

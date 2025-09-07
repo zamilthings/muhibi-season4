@@ -97,7 +97,11 @@ function Results() {
         if (!poster) return;
 
         setDownloading(true);
-        const canvas = await html2canvas(poster, { scale: 2, useCORS: true }); // ✅ sharper
+        const canvas = await html2canvas(poster, {
+            scale: 4,        // Higher scale = sharper
+            useCORS: true,
+            allowTaint: true
+        }); // ✅ sharper
         canvas.toBlob((blob) => {
             if (blob) {
                 saveBlobAsFile(blob, `${programName || 'poster'}.png`);
@@ -111,7 +115,11 @@ function Results() {
         const poster = document.getElementById('poster');
         if (!poster) return;
 
-        const canvas = await html2canvas(poster, { scale: 2, useCORS: true }); // ✅ sharper
+        const canvas = await html2canvas(poster, {
+            scale: 4,        // Higher scale = sharper
+            useCORS: true,
+            allowTaint: true
+        }); // ✅ sharper
         canvas.toBlob(async (blob) => {
             if (!blob) return;
             const fileName = `${programName || 'poster'}.png`;
@@ -152,7 +160,7 @@ function Results() {
     };
 
 
-   
+
 
 
 
@@ -265,7 +273,7 @@ function Results() {
                                     />
                                 </div>
 
-                                <div className="flex max-w-[450px] gap-2 mx-auto">
+                                <div className="flex custom-width gap-2 mx-auto">
                                     <button
                                         className="bg-[#003F06] text-white font-bold py-3 px-6 rounded-md uppercase text-[16px] mt-4 mx-auto  w-full flex items-center justify-center transition-all ease-in-out hover:bg-green-700 custom-width"
                                         onClick={() => handleDownload(result[0]?.programName)}
