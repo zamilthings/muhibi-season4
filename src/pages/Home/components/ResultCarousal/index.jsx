@@ -28,7 +28,7 @@ function Results() {
         // Fetch results for each program
         const resultsPromises = programs.map(async (program) => {
           const tableName = "Result";
-          const filterBy = `{Program} = '${program.fields.Name}'`;
+          const filterBy = `AND({Program} = '${program.fields.Name}', {Program_category} = '${program.fields.Category}')`;
           const sortField = "Place";
           const sortDirection = 'asc';
           const results = await fetchRecords(
