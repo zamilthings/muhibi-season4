@@ -58,7 +58,7 @@ const Poster = ({ programCategory, programName, stage, records }) => {
       transition={{ duration: 0.2 }}
 
     >
-      <div className="poster-card rounded-lg overflow-hidden mx-auto shadow-xl relative" id='poster'>
+      <div className="poster-card rounded overflow-hidden mx-auto shadow-xl relative" id='poster'>
         <img
           src={stage === "OFF STAGE" ? offStage : onStage}
           alt="poster"
@@ -78,37 +78,38 @@ const Poster = ({ programCategory, programName, stage, records }) => {
           </p>
         </div>
 
-        <div className={`custom-top-winners text-white gap-3 ${TotalWinners > 5 ? "-mt-6 !gap-1" : ""}`}>
+        <div className={`custom-top-winners text-white gap-3 ${TotalWinners > 5 ? "-mt-5 !gap-2" : ""}`}>
           {Object.entries(groupRecordsByPlace(records)).map(([place, records]) => (
-            <div key={place} className={`flex gap-2 sm:gap-[14px] items-start  ${TotalWinners > 5 ? "!gap-[10px] ":""}`}>
-          <div>
-            <img src={getBadgeImage(place)} alt={`Badge ${place}`} className={`top-0 w-[12px] sm:w-4 max-w-4  text-white ${TotalWinners > 5 ? "!w-[10px]" : ""}`} />
-          </div>
-          <div className={`${records.length > 1 ? '' : ''}`}>
-            {/* Display winner(s) and department(s) for each place */}
-            {records.map((record, index) => (
-              <div key={index}
-                className={classNames(
-                  'flex  flex-col leading-3 text-white items-start justify-start ',
-                )}>
-                <p className={`font-semibold text-sm custom-winner-name ${TotalWinners > 5 ? "!text-[10px]" : ""}`}>
-                  {record.fields.Name}
-                </p>
-                <p className={` text-[11px] custom-winner-team mt-1 ${TotalWinners > 5 ? "!text-[8px] " : ""}`}>
-                  {record.fields.Team}
-                </p>
+            <div key={place} className={`flex gap-2 sm:gap-[14px] items-start  `}>
+              <div>
+                <img src={getBadgeImage(place)} alt={`Badge ${place}`} className={`top-0 w-[12px] sm:w-4 max-w-4  text-white ${TotalWinners > 5 ? "!w-[10px]" : ""}`} />
               </div>
-            ))}
-            <div>
+              <div className={`${records.length > 1 ? '' : ''}`}>
+                {/* Display winner(s) and department(s) for each place */}
+                {records.map((record, index) => (
+                  <div key={index}
+                    className={classNames(
+                      'flex  flex-col leading-3 text-white items-start justify-start ',
+                      { 'h-4 sm:h-6': TotalWinners > 5  },
+                    )}>
+                    <p className={`font-semibold text-sm custom-winner-name`}>
+                      {record.fields.Name}
+                    </p>
+                    <p className={` text-[11px] custom-winner-team mt-1 `}>
+                      {record.fields.Team}
+                    </p>
+                  </div>
+                ))}
+                <div>
 
 
+                </div>
+
+              </div>
             </div>
-
-          </div>
-        </div>
           ))}
+        </div>
       </div>
-    </div>
 
     </motion.div >
   );
